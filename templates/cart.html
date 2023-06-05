@@ -1,4 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
   <h1 class="product-info-heading">Your Cart</h1>
+  <h3>Total Price: {{ total_price }}$</h3>
+  <h3>Total Price in Rials: {{ total_price_rials }} Rials</h3>
+  {% for product in cart|unique(attribute='name') %}
+        {% set product_quantity = cart|selectattr('name', 'equalto', product.name)|list|length %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="article-metadata">
+                            <label for="product-name">Product Name:</label>
+                            <h3 class="mr-2" id="product-name">{{ product.name }}</h3>
+                            <label for="product-price">Product Price:</label>
+                            <h4 class="text-muted" id="product-price">{{ product.price }}$</h4>
+                            <p>{{ exchange_rate * product.price }} Rials</p>
+                            <p>Quantity: {{ product_quantity }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <img src="{{ product.image }}" height="200" width="200" alt="Image" class="rounded-img img-fluid">
+                    </div>
+                </div>
+  {% endfor %}              
 {% endblock content %}
