@@ -43,5 +43,11 @@
           </div>
       </div>
   </article>
-  {% endfor %}              
+  {% endfor %}
+  <!-- Confirm Purchase button -->
+  <div class="text-center mt-4">
+    <form action="{{ url_for('confirm_purchase') }}" method="POST">
+        <button type="submit" class="btn btn-success">Confirm Purchase</button>
+    </form>
+</div>    
 {% endblock content %}
