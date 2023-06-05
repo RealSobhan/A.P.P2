@@ -42,6 +42,35 @@
             </div>
         </nav>
     </header>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+              <!-- messages that we wante to display in the page :(-->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock content%}
+            </div>
+            <div class="col-md-4">
+                <div class="content-section rounded-box">
+                    <h3>Advertisement</h3>
+                    <p class="text-muted">advertisement help us keep this online shop free.</p>
+                    <ul class="list-group">
+                      <!-- links for our side bar-->
+                        <li class="list-group-item list-group-item-light advertisement"><a href='https://www.digikala.com/'>Our other website</a></li>
+                        <li class="list-group-item list-group-item-light advertisement"><a href='https://www.google.com/maps/place/%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87+%D9%85%D9%87%D9%86%D8%AF%D8%B3%DB%8C+%D8%B5%D9%86%D8%A7%DB%8C%D8%B9+%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87+%D8%B5%D9%86%D8%B9%D8%AA%DB%8C+%D8%B4%D8%B1%DB%8C%D9%81%E2%80%AD/@35.7040543,51.3508202,18.51z/data=!4m6!3m5!1s0x3f8e00a8ecd00001:0x313ae76059e1e204!8m2!3d35.7037749!4d51.3504977!16s%2Fg%2F11dyp5sfrv?entry=ttu'>Pay us a visit</a></li>
+                        <li class="list-group-item list-group-item-light advertisement"><a href='https://gamein.ie.sharif.ir/'>The greatest student event in the country!</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
       <!-- create a footbar-->
       <footer class="site-footer">
         <div class="container">
