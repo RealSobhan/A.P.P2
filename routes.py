@@ -10,3 +10,10 @@ try:
 except FileNotFoundError:
     create_csv(f"warehouse", ["name", "price", "drive_link"])
     products = pd.read_csv("warehouse.csv")
+
+
+
+# route for our home page
+@app.route('/', methods=['POST'])
+def index():
+    return render_template('index.html')
