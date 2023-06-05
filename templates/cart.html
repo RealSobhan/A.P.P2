@@ -22,5 +22,16 @@
                         <img src="{{ product.image }}" height="200" width="200" alt="Image" class="rounded-img img-fluid">
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-8">
+                      <form action="{{ url_for('edit_cart_quantity') }}" method="POST">
+                          <button type="submit" style="background-color: rgb(255, 177, 74);" class="btn btn-primary">Edit Quantity</button>
+                          <input type="hidden" name="name" value="{{ product.name }}">
+                          <input type="hidden" name="price" value="{{ product.price }}">
+                          <input type="hidden" name="image" value="{{ product.image }}">
+                          <input type="number" name="new_quantity" min="0" style="width: 130px; height: 33px;" />
+                      </form>
+                  </div>
+                  <div class="col-xl-4 text-right">
   {% endfor %}              
 {% endblock content %}
