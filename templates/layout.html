@@ -17,6 +17,30 @@
     {% endif %}
 </head>
 <body>
-    
+    <!-- create a nav bar -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel rounded-box fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">Online Shop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                          <!-- add these words in the nav bar-->
+                            <a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 </body>
 </html>
