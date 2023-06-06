@@ -14,3 +14,15 @@ def csv_to_dict(csv_file):
         reader = csv.DictReader(file)
         data = [row for row in reader]
     return data
+
+# use api to get ratio between USD and Rials
+def get_currency(api_url='http://api.navasan.tech/latest/?api_key=freeIuhhwfyERXx6Xu06WJ3zDeNKC5eJ'):
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            return int(data["usd"]["value"])
+        else:
+            return f'Request failed with status code: {response.status_code}'
+    except requests.exceptions.RequestException as e:
+        return f'Request error: {e}'
