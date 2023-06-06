@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1 class="product-info-heading blink-blue">Add product to the shop</h1>
+    <form method="POST" action="{{ url_for('admin') }}" class="text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <label for="name">Product Name:</label>
+          <input type="text" id="name" name="name" class="form-control" autocomplete="off"><br>
+        </div>
+        <div class="col-md-4">
+          <label for="price">Product Price:</label>
+          <input type="number" id="price" name="price" min="0" step="any" class="form-control" autocomplete="off"><br>
+        </div>
+        <div class="col-md-4">
+          <label for="image">Product Image Link:</label>
+          <input type="text" id="image" name="image" class="form-control"><br>
+        </div>
+      </div>
+      <input type="submit" value="Add" class="btn btn-primary add-and-remove-button">
+    </form>
+    
+{% endblock content %}
