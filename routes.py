@@ -4,7 +4,7 @@ import pandas as pd
 
 
 
-# creating an initial csv as a database ro read a one
+# creating an initial csv as a database to read a one
 try:
     products = pd.read_csv("warehouse.csv")
 except FileNotFoundError:
