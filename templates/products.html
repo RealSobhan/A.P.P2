@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1 class="product-info-heading">Available Products</h1>
+    {% for product in products %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <div class="article-metadata">
+                  <label for="product-name">Product Name:</label>
+                  <h3 class="mr-2" id="product-name">{{ product.name }}</h3>
+                  <label for="product-price">Product Price:</label>
+                  <h4 class="text-muted" id="product-price">{{ product.price }}$</h4>
+				  <p> {{ exchange_rate * product.price }} Rials </p>
+                </div>
+              </div>
+              <div class="col-md-4 text-right">
+                <img src="{{product.drive_link}}" height="200" width="200" alt="Image" class="img-fluid rounded-img">
+              </div>
+            </div>
+            <!-- Add to cart button -->
+            <form action="{{ url_for('add_to_cart') }}" method="POST">
+                <input type="hidden" name="name" value="{{ product.name }}">
+                <input type="hidden" name="price" value="{{ product.price }}">
+                <input type="hidden" name="image" value="{{ product.drive_link }}">
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+              </form>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
