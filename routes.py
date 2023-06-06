@@ -1,6 +1,7 @@
-from flask import render_template
+from flask import render_template, request, redirect, url_for, session
 from app import app
 import pandas as pd
+from utils import create_csv, csv_to_dict, correct_link, get_currency
 
 
 
@@ -14,6 +15,9 @@ except FileNotFoundError:
 
 
 # route for our home page
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    product_to_show = csv_to_dict("warehouse.csv")
+    for product in product_to_show:
+        product["price"] = float(product["price"])
+    return render_template('products.html', products=product_to_show, exchange_rate=int(get_currency() * 10), title="Home")
