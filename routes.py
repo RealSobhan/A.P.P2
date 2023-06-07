@@ -79,6 +79,49 @@ def remove_from_cart():
     
     return redirect(url_for('cart'))
 
+@app.route('/cart')
+def cart():
+    cart_items = session.get('cart', [])
+    total_price = sum(item['price'] for item in cart_items) if cart_items else 0 # Calculate the total price of the cart
+    exchange_rate = int(get_currency() * 10)
+    total_price_rials = int(total_price * exchange_rate) # exchange rate is the ratio between USD and Rials
+    return render_template('cart.html', cart=cart_items, total_price=total_price,
+                           total_price_rials=total_price_rials, exchange_rate=exchange_rate, title="Cart")
+
+
+@app.route('/edit_cart_quantity', methods=['POST'])
+def edit_cart_quantity():
+    name = request.form['name']
+    price = float(request.form['price'])
+    image = request.form['image']
+    cart_items = session.get('cart', [])
+    
+    new_quantity = int(request.form['new_quantity'])
+    print(cart_items)
+    # first we count the difference between current amount of the product in our cart and the amount we want:
+    counter = 0
+    for item in cart_items :
+        if item['name'] == name :
+            counter += 1
+    
+    # we create a dictionary that is in the format of edited product:
+    d = {'name':name, 'price':price, 'image':image}    
+    new_cart = []
+    
+    for item in cart_items :
+        if item['name'] != name:
+            new_cart.append(item)
+        else:
+            continue
+        
+    for i in range(new_quantity):
+        new_cart.append(d)
+    
+    cart_items = new_cart
+    
+    session['cart'] = cart_items
+    session.modified = True  # Save the session after modifying the cart
+    return redirect(url_for('cart'))
 
 
 @app.route('/confirm_purchase', methods=['POST'])
