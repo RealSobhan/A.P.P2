@@ -89,6 +89,40 @@ def cart():
                            total_price_rials=total_price_rials, exchange_rate=exchange_rate, title="Cart")
 
 
+@app.route('/edit_cart_quantity', methods=['POST'])
+def edit_cart_quantity():
+    name = request.form['name']
+    price = float(request.form['price'])
+    image = request.form['image']
+    cart_items = session.get('cart', [])
+    
+    new_quantity = int(request.form['new_quantity'])
+    print(cart_items)
+    # first we count the difference between current amount of the product in our cart and the amount we want:
+    counter = 0
+    for item in cart_items :
+        if item['name'] == name :
+            counter += 1
+    
+    # we create a dictionary that is in the format of edited product:
+    d = {'name':name, 'price':price, 'image':image}    
+    new_cart = []
+    
+    for item in cart_items :
+        if item['name'] != name:
+            new_cart.append(item)
+        else:
+            continue
+        
+    for i in range(new_quantity):
+        new_cart.append(d)
+    
+    cart_items = new_cart
+    
+    session['cart'] = cart_items
+    session.modified = True  # Save the session after modifying the cart
+    return redirect(url_for('cart'))
+
 
 @app.route('/confirm_purchase', methods=['POST'])
 def confirm_purchase():
