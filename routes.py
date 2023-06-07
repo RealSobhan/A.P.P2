@@ -79,6 +79,15 @@ def remove_from_cart():
     
     return redirect(url_for('cart'))
 
+@app.route('/cart')
+def cart():
+    cart_items = session.get('cart', [])
+    total_price = sum(item['price'] for item in cart_items) if cart_items else 0 # Calculate the total price of the cart
+    exchange_rate = int(get_currency() * 10)
+    total_price_rials = int(total_price * exchange_rate) # exchange rate is the ratio between USD and Rials
+    return render_template('cart.html', cart=cart_items, total_price=total_price,
+                           total_price_rials=total_price_rials, exchange_rate=exchange_rate, title="Cart")
+
 
 
 @app.route('/confirm_purchase', methods=['POST'])
