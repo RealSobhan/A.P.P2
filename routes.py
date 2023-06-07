@@ -78,3 +78,11 @@ def remove_from_cart():
     session.modified = True  # Save the session after modifying the cart
     
     return redirect(url_for('cart'))
+
+
+
+@app.route('/confirm_purchase', methods=['POST'])
+def confirm_purchase():
+    session['cart'] = []
+    session.modified = True  # Save the session after modifying the cart
+    return render_template('purchase_confirmation.html')
