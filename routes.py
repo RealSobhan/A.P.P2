@@ -3,16 +3,12 @@ from app import app
 import pandas as pd
 from utils import create_csv, csv_to_dict, correct_link, get_currency
 
-
-
 # creating an initial csv as a database to read a one
 try:
     products = pd.read_csv("warehouse.csv")
 except FileNotFoundError:
     create_csv(f"warehouse", ["name", "price", "drive_link"])
     products = pd.read_csv("warehouse.csv")
-
-
 
 # route for our home page
 @app.route('/', methods=['GET', 'POST'])
@@ -22,27 +18,30 @@ def index():
         product["price"] = float(product["price"])
     return render_template('products.html', products=product_to_show, exchange_rate=int(get_currency() * 10), title="Home")
 
+# route for admin panel that can only add item
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     global products  # Declare the variable as global
 
     if request.method == 'POST':
+        # Add new item to the database
         new_row = pd.DataFrame({'name': [request.form['name']], "price": [float(request.form['price'])], "drive_link": [correct_link(request.form['image'])]})
         products = pd.concat([products, new_row], ignore_index=True)
         products.to_csv('warehouse.csv', index=False)
         products = pd.read_csv("warehouse.csv")
 
-    return render_template('admin.html') 
+    return render_template('admin.html', title="Admin panel") 
 
 @app.route('/remove_from_warehouse', methods=['GET', 'POST'])
 def remove_from_warehouse():
-    global products  # Declare the variable as global
+    global products  # Declare the variable as global to have access to the database that have been created outside of the def
 
     if request.method == 'POST':
         products = products[products["name"] != request.form['name']]
         products.to_csv('warehouse.csv', index=False)
         products = pd.read_csv("warehouse.csv")
-    return render_template('admin.html') 
+    return render_template('admin.html', title="Admin panel") 
+
 
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
@@ -79,6 +78,8 @@ def remove_from_cart():
     
     return redirect(url_for('cart'))
 
+
+
 @app.route('/cart')
 def cart():
     cart_items = session.get('cart', [])
@@ -87,7 +88,6 @@ def cart():
     total_price_rials = int(total_price * exchange_rate) # exchange rate is the ratio between USD and Rials
     return render_template('cart.html', cart=cart_items, total_price=total_price,
                            total_price_rials=total_price_rials, exchange_rate=exchange_rate, title="Cart")
-
 
 @app.route('/edit_cart_quantity', methods=['POST'])
 def edit_cart_quantity():
@@ -128,4 +128,4 @@ def edit_cart_quantity():
 def confirm_purchase():
     session['cart'] = []
     session.modified = True  # Save the session after modifying the cart
-    return render_template('purchase_confirmation.html')
+    return render_template('purchase_confirmation.html', title="Purchase Confirmed")
