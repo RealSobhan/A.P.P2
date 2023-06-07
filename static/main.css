@@ -204,3 +204,173 @@ body {
   .sidebar .list-group-item:last-child {
     margin-bottom: 0;
   }
+
+/* Alerts */
+
+.alert {
+  border-radius: 3px;
+}
+
+.alert-primary {
+  background-color: #cfe2ff;
+  color: #004085;
+}
+
+.alert-secondary {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.flip-effect {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.flip-effect:hover {
+  transform: rotateY(180deg);
+}
+
+.footer-creators {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-creators li {
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer-creators li::after {
+  content: attr(data-name);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  backface-visibility: hidden;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.footer-creators li:hover::after {
+  transform: rotateY(180deg);
+}
+
+.footer-creators li span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #a92323;
+  transition: transform 0.5s;
+  opacity: 0;
+}
+
+.footer-creators li:hover span {
+  transform: rotateY(180deg);
+  opacity: 1;
+}
+
+@keyframes blink-red {
+  0% {
+    color: rgb(95, 0, 0);
+  }
+  50% {
+    color: rgb(255, 92, 92);
+  }
+  100% {
+    color: rgb(95, 0, 0);
+  }
+}
+
+.blink-red {
+  animation: blink-red 5.5s infinite;
+}
+
+@keyframes blink {
+  0% {
+    color: rgb(0, 0, 95);
+  } 
+  50% {
+    color: rgb(92, 92, 255);
+  }
+  100% {
+    color: rgb(0, 0, 95);
+  }
+}
+
+.blink-blue {
+  animation: blink 5.5s infinite;
+}
+
+.add-and-remove-button {
+  width: 225px;
+}
+
+.kebab {
+  animation-name: changeBgColor;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.rounded-img {
+  border-radius: 10%;
+  width: 200px; 
+  height: 180px;
+}
+          .rounded-box {
+              border-radius: 10px;
+          }
+          
+          .site-header .navbar {
+              border-radius: 0; /* Remove rounded corners */
+          }
+          
+          .content-section {
+              border: 1px solid #ccc;
+              border-radius: 10px;
+              padding: 10px;
+          }
+          
+          .advertisement {
+              border-radius: 10px;
+          }
+          
+          .site-footer .col-md-4 ul li span {
+              border-radius: 10px;
+              display: inline-block;
+              padding: 5px 10px;
+              background-color: #f8f9fa;
+              margin-bottom: 5px;
+}
